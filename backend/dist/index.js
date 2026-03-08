@@ -41,7 +41,6 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // );
 app.use(passport_1.default.initialize());
 // app.use(passport.session());
-<<<<<<< HEAD
 // // );
 // app.use(
 //   cors({
@@ -96,7 +95,6 @@ app.use((0, cors_1.default)({
 app.get(`/`, (0, asyncHandler_middleware_1.asyncHandler)(async (req, res, next) => {
     return res.status(http_config_1.HTTPSTATUS.OK).json({
         message: "Hello Subscribe to the channel & share",
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
     });
 }));
 app.use(`${BASE_PATH}/auth`, auth_route_1.default);
@@ -107,7 +105,6 @@ app.use(`${BASE_PATH}/project`, passport_config_1.passportAuthenticateJWT, proje
 app.use(`${BASE_PATH}/task`, passport_config_1.passportAuthenticateJWT, task_route_1.default);
 app.use(`${BASE_PATH}/reports`, report_route_1.default);
 app.use(errorHandler_middleware_1.errorHandler);
-<<<<<<< HEAD
 // app.listen(config.PORT,async () => {
 //   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
 //   await connectDatabase();
@@ -131,5 +128,4 @@ app.listen(Number(app_config_1.config.PORT), "0.0.0.0", async () => {
 app.listen(app_config_1.config.PORT, async () => {
     console.log(`Server listening on port ${app_config_1.config.PORT} in ${app_config_1.config.NODE_ENV}`);
     await (0, database_config_1.default)();
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 });

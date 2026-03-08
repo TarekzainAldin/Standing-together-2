@@ -21,8 +21,5 @@
 //   },
 //   "include": ["src"]
 // }
-<<<<<<< HEAD
 //adding testing for the commeit 
 
-=======
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5

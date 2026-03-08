@@ -1,13 +1,11 @@
-node_modules/
-node_modules/
+
 **/.cache/
 node_modules/
-node_modules/
-<<<<<<< HEAD
+
 .env
 .env.production
 .env.docker
 backend/.env
 backend/.env.docker
-=======
+
 
