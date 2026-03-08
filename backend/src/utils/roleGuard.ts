@@ -18,14 +18,11 @@ export const roleGuard = (
   );
 
   if (!hasPermission) {
-<<<<<<< HEAD
     // throw new UnauthorizedException(
     //   "You do not have the necessary permissions to perform this action"
     // );
     throw new ForbiddenException(
-=======
     throw new UnauthorizedException(
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
       "You do not have the necessary permissions to perform this action"
     );
   }
