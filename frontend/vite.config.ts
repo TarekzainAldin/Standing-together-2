@@ -10,11 +10,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-<<<<<<< HEAD
+
   
   server: {
     host: true,
   }
-=======
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
+
 });
