@@ -41,53 +41,6 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // );
 app.use(passport_1.default.initialize());
 // app.use(passport.session());
-// // );
-// app.use(
-//   cors({
-//     origin: config.FRONTEND_ORIGIN,
-//     credentials: true,
-//   })
-// );
-// CORS setup
-const allowedOrigins = [
-    "http://localhost:5173",
-    "http://frontend_dev:5173",
-    process.env.FRONTEND_ORIGIN
-].filter(Boolean);
-app.use((0, cors_1.default)({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin))
-            return callback(null, true);
-        console.log("❌ CORS blocked:", origin);
-        callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true
-}));
-// const allowedOrigins = ["http://localhost:5173", "http://frontend_dev:5173"];
-// app.use(cors({ origin: (origin, callback) => {
-//   if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-//   else callback(new Error("Not allowed by CORS"));
-// }, credentials: true }));
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   process.env.FRONTEND_ORIGIN 
-// ].filter(Boolean); // لتنظيف القيم الفارغة
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     // السماح إذا كان الطلب من مصدر موثوق أو بدون origin (مثل تطبيقات الموبايل/Postman)
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       console.log("CORS Rejected Origin:", origin); // مفيد جداً للتصحيح
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true
-// }));
-app.get(`/`, (0, asyncHandler_middleware_1.asyncHandler)(async (req, res, next) => {
-    return res.status(http_config_1.HTTPSTATUS.OK).json({
-        message: "Hello Subscribe to the channel & share yab",
-=======
 app.use((0, cors_1.default)({
     origin: app_config_1.config.FRONTEND_ORIGIN,
     credentials: true,
@@ -105,26 +58,6 @@ app.use(`${BASE_PATH}/project`, passport_config_1.passportAuthenticateJWT, proje
 app.use(`${BASE_PATH}/task`, passport_config_1.passportAuthenticateJWT, task_route_1.default);
 app.use(`${BASE_PATH}/reports`, report_route_1.default);
 app.use(errorHandler_middleware_1.errorHandler);
-// app.listen(config.PORT,async () => {
-//   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
-//   await connectDatabase();
-// });
-//testing
-// app.listen(Number(config.PORT), "0.0.0.0", async () => {
-//   console.log(`Server listening on port ${config.PORT}`);
-//   await connectDatabase();
-// });
-// أضف "0.0.0.0" لضمان استقبال الطلبات الخارجية
-app.listen(Number(app_config_1.config.PORT), "0.0.0.0", async () => {
-    console.log(`🚀 Server is humming at http://0.0.0.0:${app_config_1.config.PORT}`);
-    try {
-        await (0, database_config_1.default)();
-        console.log("✅ Database connected successfully");
-    }
-    catch (error) {
-        console.error("❌ Database connection failed:", error);
-    }
-=======
 app.listen(app_config_1.config.PORT, async () => {
     console.log(`Server listening on port ${app_config_1.config.PORT} in ${app_config_1.config.NODE_ENV}`);
     await (0, database_config_1.default)();

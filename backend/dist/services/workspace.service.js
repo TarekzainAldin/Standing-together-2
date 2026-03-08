@@ -156,20 +156,8 @@ const deleteWorkspaceService = async (workspaceId, userId) => {
             throw new appError_1.NotFoundException("Workspace not found");
         }
         // Check if the user owns the workspace
-<<<<<<< HEAD
-        // if (!workspace.owner.equals(new mongoose.Types.ObjectId(userId))) { 
-        //   // throw new BadRequestException(
-        //   //   "You are not authorized to delete this workspace"
-        //   throw new ForbiddenException(
-        // "You do not have permission to delete this workspace"
-        //   );
-        // }
-        if (!workspace.owner.equals(new mongoose_1.default.Types.ObjectId(userId))) {
-            throw new appError_1.ForbiddenException();
-=======
         if (!workspace.owner.equals(new mongoose_1.default.Types.ObjectId(userId))) {
             throw new appError_1.BadRequestException("You are not authorized to delete this workspace");
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
         }
         const user = await user_model_1.default.findById(userId).session(session);
         if (!user) {
@@ -191,23 +179,13 @@ const deleteWorkspaceService = async (workspaceId, userId) => {
         }
         await workspace.deleteOne({ session });
         await session.commitTransaction();
-<<<<<<< HEAD
-        console.log("Transaction aborted, rollback executed");
         session.endSession();
-        console.log("end session ");
-=======
-        session.endSession();
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
         return {
             currentWorkspace: user.currentWorkspace,
         };
     }
     catch (error) {
         await session.abortTransaction();
-<<<<<<< HEAD
-        console.log("Transaction aborted, rollback executed");
-=======
->>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
         session.endSession();
         throw error;
     }
