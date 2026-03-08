@@ -44,15 +44,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 // app.use(passport.session());
 
+<<<<<<< HEAD
 
 
 // // );
+=======
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 app.use(
   cors({
     origin: config.FRONTEND_ORIGIN,
     credentials: true,
   })
 );
+<<<<<<< HEAD
 // CORS setup
 // const allowedOrigins = [
 //   "http://localhost:5173",
@@ -91,13 +95,19 @@ app.use(
 //   credentials: true
 // }));
 
+=======
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 
 app.get(
   `/`,
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
    
     return res.status(HTTPSTATUS.OK).json({
+<<<<<<< HEAD
       message: "Hello Subscribe to the channel & share yab",
+=======
+      message: "Hello Subscribe to the channel & share",
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
     });
   })
 );
@@ -111,6 +121,7 @@ app.use(`${BASE_PATH}/task`, passportAuthenticateJWT, taskRoutes);
 app.use(`${BASE_PATH}/reports`,reportRoutes);
 app.use(errorHandler);
 
+<<<<<<< HEAD
 // app.listen(config.PORT,async () => {
 //   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
 //   await connectDatabase();
@@ -131,3 +142,9 @@ app.listen(Number(config.PORT), "0.0.0.0", async () => {
         console.error("❌ Database connection failed:", error);
     }
 });
+=======
+app.listen(config.PORT, async () => {
+  console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
+  await connectDatabase();
+});
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5

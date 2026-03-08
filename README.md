@@ -157,5 +157,8 @@ This project is licensed under the MIT License.
 
 # connect to GitHub (replace with your repo URL)
 git remote add origin https://github.com/TarekzainAldin/Standing-together.git
+<<<<<<< HEAD
  
  thank yu
+=======
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5

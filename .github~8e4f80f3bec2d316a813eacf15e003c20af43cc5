@@ -1,0 +1,47 @@
+# name: Deploy DSH Project
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Setup PHP
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '8.2'
+#           extensions: mbstring, bcmath, pdo, curl
+#           tools: composer
+
+# #      - name: Setup Node
+# #        uses: actions/setup-node@v3
+# #        with:
+# #          node-version: '20'
+
+# #      - name: Install PHP dependencies
+# #        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# #      - name: Install JS dependencies
+# #        run: npm install --legacy-peer-deps
+
+# #      - name: Build React frontend
+# #        run: npm run build
+
+# #      - name: Run PHP Tests
+# #        run: ./vendor/bin/phpunit
+
+#       - name: Deploy via SSH
+#         uses: appleboy/scp-action@master
+#         with:
+#           host: ${{ secrets.VPS_HOST }}
+#           username: ${{ secrets.VPS_USER }}
+#           key: ${{ secrets.VPS_SSH_KEY }}
+#           source: "."
+#           target: "/var/www/dsh"

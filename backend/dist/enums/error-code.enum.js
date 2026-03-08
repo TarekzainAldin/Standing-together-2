@@ -11,7 +11,10 @@ exports.ErrorCodeEnum = {
     AUTH_TOKEN_NOT_FOUND: "AUTH_TOKEN_NOT_FOUND",
     // Access Control Errors
     ACCESS_UNAUTHORIZED: "ACCESS_UNAUTHORIZED",
+<<<<<<< HEAD
     ACCESS_FORBIDDEN: "ACCESS_FORBIDDEN",
+=======
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
     // Validation and Resource Errors
     VALIDATION_ERROR: "VALIDATION_ERROR",
     RESOURCE_NOT_FOUND: "RESOURCE_NOT_FOUND",

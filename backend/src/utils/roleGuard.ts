@@ -1,5 +1,9 @@
 import { PermissionType, Permissions } from "../enums/role.enum";
+<<<<<<< HEAD
 import { UnauthorizedException,ForbiddenException  } from "./appError";
+=======
+import { UnauthorizedException } from "./appError";
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 import { RolePermissions } from "./role-permission";
 
 export const roleGuard = (
@@ -14,10 +18,14 @@ export const roleGuard = (
   );
 
   if (!hasPermission) {
+<<<<<<< HEAD
     // throw new UnauthorizedException(
     //   "You do not have the necessary permissions to perform this action"
     // );
     throw new ForbiddenException(
+=======
+    throw new UnauthorizedException(
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
       "You do not have the necessary permissions to perform this action"
     );
   }

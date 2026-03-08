@@ -26,7 +26,10 @@ import {
   EditWorkspaceType,
 } from "@/types/api.type";
 
+<<<<<<< HEAD
 // ******** AUTH *********
+=======
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 export const loginMutationFn = async (
   data: loginType
 ): Promise<LoginResponseType> => {
@@ -42,10 +45,20 @@ export const logoutMutationFn = async () => await API.post("/auth/logout");
 export const getCurrentUserQueryFn =
   async (): Promise<CurrentUserResponseType> => {
     const response = await API.get(`/user/current`);
+<<<<<<< HEAD
     return response.data;
   };
 
 // ******** WORKSPACE *********
+=======
+    console.log("Response from /user/current:", response.data);
+    return response.data;
+  };
+
+//********* WORKSPACE ****************
+//************* */
+
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 export const createWorkspaceMutationFn = async (
   data: CreateWorkspaceType
 ): Promise<CreateWorkspaceResponseType> => {
@@ -109,9 +122,16 @@ export const deleteWorkspaceMutationFn = async (
   return response.data;
 };
 
+<<<<<<< HEAD
 // ******** MEMBER *********
 export const invitedUserJoinWorkspaceMutationFn = async (
   inviteCode: string
+=======
+//*******MEMBER ****************
+
+export const invitedUserJoinWorkspaceMutationFn = async (
+  inviteCode : string
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 ): Promise<{
   message: string;
   workspaceId: string;
@@ -120,7 +140,12 @@ export const invitedUserJoinWorkspaceMutationFn = async (
   return response.data;
 };
 
+<<<<<<< HEAD
 // ******** PROJECT *********
+=======
+//********* */
+//********* PROJECTS
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 export const createProjectMutationFn = async ({
   workspaceId,
   data,
@@ -178,14 +203,26 @@ export const getProjectAnalyticsQueryFn = async ({
 export const deleteProjectMutationFn = async ({
   workspaceId,
   projectId,
+<<<<<<< HEAD
 }: ProjectByIdPayloadType): Promise<{ message: string }> => {
+=======
+}: ProjectByIdPayloadType): Promise<{
+  message: string;
+}> => {
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
   const response = await API.delete(
     `/project/${projectId}/workspace/${workspaceId}/delete`
   );
   return response.data;
 };
 
+<<<<<<< HEAD
 // ******** TASK *********
+=======
+//*******TASKS ********************************
+//************************* */
+
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 export const createTaskMutationFn = async ({
   workspaceId,
   projectId,
@@ -198,12 +235,20 @@ export const createTaskMutationFn = async ({
   return response.data;
 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 export const editTaskMutationFn = async ({
   taskId,
   projectId,
   workspaceId,
   data,
+<<<<<<< HEAD
 }: EditTaskPayloadType): Promise<{ message: string }> => {
+=======
+}: EditTaskPayloadType): Promise<{message: string;}> => {
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
   const response = await API.put(
     `/task/${taskId}/project/${projectId}/workspace/${workspaceId}/update/`,
     data
@@ -245,6 +290,7 @@ export const deleteTaskMutationFn = async ({
 }: {
   workspaceId: string;
   taskId: string;
+<<<<<<< HEAD
 }): Promise<{ message: string }> => {
   const response = await API.delete(
     `/task/${taskId}/workspace/${workspaceId}/delete`
@@ -253,14 +299,61 @@ export const deleteTaskMutationFn = async ({
 };
 
 // ******** REPORTS *********
+=======
+}): Promise<{
+  message: string;
+}> => {
+  const response = await API.delete(
+    `task/${taskId}/workspace/${workspaceId}/delete`
+  );
+  return response.data;
+};
+// ******** REPORTS *********
+
+// export const generateReportQueryFn = async (workspaceId?: string) => {
+//   const url = workspaceId
+//     ? `/reports/generate?workspaceId=${workspaceId}`
+//     : `/reports/generate`;
+
+//   const response = await API.get(url, {
+//     responseType: "blob", // ضروري لتنزيل ملف Excel
+//   });
+
+//   // إنشاء رابط تحميل مباشر
+//   const blob = new Blob([response.data], {
+//     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+//   });
+//   const link = document.createElement("a");
+//   const today = new Date().toISOString().split("T")[0];
+//   const fileName = workspaceId
+//     ? `Report_${workspaceId}_${today}.xlsx`
+//     : `Report_AllWorkspaces_${today}.xlsx`;
+
+//   link.href = window.URL.createObjectURL(blob);
+//   link.download = fileName;
+//   link.click();
+// };
+// ******** REPORTS *********
+
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 export const generateReportQueryFn = async (workspaceId?: string) => {
   const url = workspaceId
     ? `/reports/generate?workspaceId=${workspaceId}`
     : `/reports/generate`;
 
+<<<<<<< HEAD
+=======
+  // ✅ نحدد نوع الاستجابة blob لأننا ننتظر ملف Excel
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
   const response = await API.get(url, {
     responseType: "blob",
   });
 
+<<<<<<< HEAD
   return response;
 };
+=======
+  // ✅ نرجع response حتى يقدر الـ hook يتعامل معه
+  return response;
+};
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5

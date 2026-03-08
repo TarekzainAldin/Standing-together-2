@@ -69,6 +69,7 @@ export class UnauthorizedException extends AppError {
     );
   }
 }
+<<<<<<< HEAD
 export class ForbiddenException extends AppError {
   constructor(
     message = "You do not have the necessary permissions to perform this action",
@@ -81,3 +82,5 @@ export class ForbiddenException extends AppError {
     );
   }
 }
+=======
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5

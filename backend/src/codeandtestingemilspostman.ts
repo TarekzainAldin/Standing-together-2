@@ -2,10 +2,14 @@
 //     "email": "tery@example.com",
 //     "password": "TeryZin123"
 // }
+<<<<<<< HEAD
 // {
 //  "email": "jury55@example.com",
 // "password": "juryZin123"
 // }
+=======
+
+>>>>>>> 8e4f80f3bec2d316a813eacf15e003c20af43cc5
 
 
 // {
