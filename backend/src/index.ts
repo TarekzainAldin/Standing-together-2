@@ -44,11 +44,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 // app.use(passport.session());
 
-
-
-
-// // );
-
 app.use(
   cors({
     origin: config.FRONTEND_ORIGIN,
@@ -56,54 +51,12 @@ app.use(
   })
 );
 
-// CORS setup
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   "http://frontend_dev:5173",
-//   process.env.FRONTEND_ORIGIN
-// ].filter(Boolean);
-
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-//     console.log("❌ CORS blocked:", origin);
-//     callback(new Error("Not allowed by CORS"));
-//   },
-//   credentials: true
-// }));
-
-// const allowedOrigins = ["http://localhost:5173", "http://frontend_dev:5173"];
-// app.use(cors({ origin: (origin, callback) => {
-//   if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-//   else callback(new Error("Not allowed by CORS"));
-// }, credentials: true }));
-
-// CORS setup
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   "http://frontend_dev:5173",
-//   process.env.FRONTEND_ORIGIN
-// ].filter(Boolean);
-
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-//     console.log("❌ CORS blocked:", origin);
-//     callback(new Error("Not allowed by CORS"));
-//   },
-//   credentials: true
-// }));
-
-
 app.get(
   `/`,
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
    
     return res.status(HTTPSTATUS.OK).json({
-
-      message: "Hello Subscribe to the channel & share yab",
-
-
+      message: "Hello Subscribe to the channel & share",
     });
   })
 );
@@ -117,30 +70,7 @@ app.use(`${BASE_PATH}/task`, passportAuthenticateJWT, taskRoutes);
 app.use(`${BASE_PATH}/reports`,reportRoutes);
 app.use(errorHandler);
 
-
-// app.listen(config.PORT,async () => {
-//   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
-//   await connectDatabase();
-// });
-//testing
-// app.listen(Number(config.PORT), "0.0.0.0", async () => {
-//   console.log(`Server listening on port ${config.PORT}`);
-//   await connectDatabase();
-// });
-
-// أضف "0.0.0.0" لضمان استقبال الطلبات الخارجية
-app.listen(Number(config.PORT), "0.0.0.0", async () => {
-    console.log(`🚀 Server is humming at http://0.0.0.0:${config.PORT}`);
-    try {
-        await connectDatabase();
-        console.log("✅ Database connected successfully");
-    } catch (error) {
-        console.error("❌ Database connection failed:", error);
-    }
-});
-
 app.listen(config.PORT, async () => {
   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
   await connectDatabase();
 });
-
