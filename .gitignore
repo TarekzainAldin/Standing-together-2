@@ -13,3 +13,4 @@ frontend/.env.docker
 
 
 .env
+backend/.env
