@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
 
@@ -8,15 +8,25 @@ services:
       dockerfile: Dockerfile.dev
     container_name: backend_dev
     restart: unless-stopped
+    ports:
+      - "8000:8000"
     volumes:
       - ./backend:/app
       - /app/node_modules
-    ports:
-      - "8000:8000"
-    env_file:
-      - ./backend/.env.docker
-    depends_on:
-      - mongo
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      MONGO_URI: ${MONGO_URI}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      SESSION_SECRET: ${SESSION_SECRET}
+      SESSION_EXPIRES_IN: ${SESSION_EXPIRES_IN}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
+      GOOGLE_CLIENT_URI: ${GOOGLE_CLIENT_URI}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN}
+      FRONTEND_GOOGLE_CALLBACK_URL: ${FRONTEND_GOOGLE_CALLBACK_URL}
     networks:
       - app-network
 
@@ -26,34 +36,17 @@ services:
       dockerfile: Dockerfile.dev
     container_name: frontend_dev
     restart: unless-stopped
+    ports:
+      - "5173:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    ports:
-      - "5173:5173"
-    env_file:
-      - ./frontend/.env.docker
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL}
     depends_on:
       - backend
     networks:
       - app-network
-
-  mongo:
-    image: mongo:7
-    container_name: mongo_dev
-    restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - app-network
-
-volumes:
-  mongo-data:
 
 networks:
   app-network:

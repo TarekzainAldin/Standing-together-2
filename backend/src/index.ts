@@ -48,6 +48,8 @@ app.use(
   cors({
     origin: config.FRONTEND_ORIGIN,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
 
@@ -74,3 +76,11 @@ app.listen(config.PORT, async () => {
   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
   await connectDatabase();
 });
+
+
+// const PORT = Number(config.PORT) || 8000;
+
+// app.listen(PORT, "0.0.0.0", async () => {
+//   console.log(`Server listening on port ${PORT} in ${config.NODE_ENV}`);
+//   await connectDatabase();
+// });
