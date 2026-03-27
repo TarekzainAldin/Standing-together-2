@@ -44,6 +44,8 @@ app.use(passport_1.default.initialize());
 app.use((0, cors_1.default)({
     origin: app_config_1.config.FRONTEND_ORIGIN,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.get(`/`, (0, asyncHandler_middleware_1.asyncHandler)(async (req, res, next) => {
     return res.status(http_config_1.HTTPSTATUS.OK).json({
@@ -62,3 +64,8 @@ app.listen(app_config_1.config.PORT, async () => {
     console.log(`Server listening on port ${app_config_1.config.PORT} in ${app_config_1.config.NODE_ENV}`);
     await (0, database_config_1.default)();
 });
+// const PORT = Number(config.PORT) || 8000;
+// app.listen(PORT, "0.0.0.0", async () => {
+//   console.log(`Server listening on port ${PORT} in ${config.NODE_ENV}`);
+//   await connectDatabase();
+// });

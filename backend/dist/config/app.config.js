@@ -4,7 +4,7 @@ exports.config = void 0;
 const get_env_1 = require("../utils/get-env");
 const appConfig = () => ({
     NODE_ENV: (0, get_env_1.getEnv)("NODE_ENV", "development"),
-    PORT: (0, get_env_1.getEnv)("PORT", "5173"),
+    PORT: (0, get_env_1.getEnv)("PORT", "8000"),
     BASE_PATH: (0, get_env_1.getEnv)("BASE_PATH", "/api"),
     MONGO_URI: (0, get_env_1.getEnv)("MONGO_URI", ""),
     JWT_SECRET: (0, get_env_1.getEnv)("JWT_SECRET"),
@@ -15,7 +15,8 @@ const appConfig = () => ({
     GOOGLE_CLIENT_SECRET: (0, get_env_1.getEnv)("GOOGLE_CLIENT_SECRET"),
     GOOGLE_CLIENT_URI: (0, get_env_1.getEnv)("GOOGLE_CLIENT_URI"),
     GOOGLE_CALLBACK_URL: (0, get_env_1.getEnv)("GOOGLE_CALLBACK_URL"),
-    FRONTEND_ORIGIN: (0, get_env_1.getEnv)("FRONTEND_ORIGIN", "localhost"),
+    // FRONTEND_ORIGIN: getEnv("FRONTEND_ORIGIN", "localhost"),
+    FRONTEND_ORIGIN: (0, get_env_1.getEnv)("FRONTEND_ORIGIN", "http://localhost:5173"),
     FRONTEND_LOCAL: "localhost",
     FRONTEND_GOOGLE_CALLBACK_URL: (0, get_env_1.getEnv)("FRONTEND_GOOGLE_CALLBACK_URL"),
 });
