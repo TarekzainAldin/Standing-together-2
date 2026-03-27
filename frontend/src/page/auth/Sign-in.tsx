@@ -89,7 +89,7 @@ const SignIn = () => {
           <CardHeader className="space-y-2 text-center">
             <CardTitle className="text-3xl font-bold text-indigo-600 dark:text-purple-400">
               Welcome Back jury day
-            <h1>Hello </h1>
+            <h1>Hello  man </h1>
             </CardTitle>
             <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
               Login with your email or Google account
