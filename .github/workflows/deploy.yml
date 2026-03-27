@@ -1,4 +1,3 @@
-
 name: Deploy Standing Together Project
 
 on:
@@ -7,22 +6,43 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
- #   steps:
-      - name: Install dependencies
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # ---------- Backend ----------
+
+      - name: Install backend dependencies
         run: npm install
+        working-directory: backend
 
-      - name: Run Tests (Jest)
+      - name: Run backend tests
         run: npm test
+        working-directory: backend
 
-      - name: Build project
+      - name: Build backend
         run: npm run build
+        working-directory: backend
+
+      # ---------- Frontend ----------
+
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+
+      # ---------- Deploy ----------
 
       - name: Deploy via SSH
         uses: appleboy/scp-action@master
@@ -32,5 +52,4 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "."
           target: "/var/www/Standing-together-2"
-
           
