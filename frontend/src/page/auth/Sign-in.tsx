@@ -88,7 +88,7 @@ const SignIn = () => {
         <Card className="shadow-2xl border-0 rounded-3xl bg-white/95 dark:bg-gray-900/90 backdrop-blur-xl">
           <CardHeader className="space-y-2 text-center">
             <CardTitle className="text-3xl font-bold text-indigo-600 dark:text-purple-400">
-              Welcome Back jury day
+              Welcome Back 
            
             </CardTitle>
             <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
