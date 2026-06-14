@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { asyncHandler } from "../middlewares/asyncHandler.middleware";
 import { config } from "../config/app.config";
-import { registerSchema } from "../validation/auth.validation";
+import { registerSchema, loginSchema } from "../validation/auth.validation";
 import { HTTPSTATUS } from "../config/http.config";
 import { registerUserService } from "../services/auth.service";
 import passport from "passport";
@@ -47,6 +47,7 @@ export const registerUserController = asyncHandler(
 
 export const loginController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
+    loginSchema.parse(req.body);
     passport.authenticate(
       "local",
       (

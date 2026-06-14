@@ -1,8 +1,9 @@
 /** @type {import('jest').Config} */
 module.exports = {
-  preset: 'ts-jest',           // يستخدم ts-jest
-  testEnvironment: 'node',     // بيئة Node.js
-  roots: ['<rootDir>/src'],    // يشمل ملفات src فقط
-  testMatch: ['**/tests/**/*.test.ts'], // يشمل ملفات الاختبار
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src'],
+  testMatch: ['**/tests/**/*.test.ts'],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+  setupFiles: ['<rootDir>/src/tests/setup.ts'],
 };
