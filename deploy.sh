@@ -12,6 +12,6 @@ pm2 restart standing-together-backend || pm2 start dist/index.js --name standing
 
 cd ../frontend
 npm install
-npm run build
+VITE_API_BASE_URL=https://basalt-tech.org/api npm run build
 
 echo "Deploy done."
