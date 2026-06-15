@@ -1,18 +1,20 @@
 name: Deploy Standing Together Project
 
 on:
-  push:
-    branches:
+ 
       - master
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
+  
+  build-test-deploy:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+ #   steps:
+      
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -24,10 +26,12 @@ jobs:
         run: npm install
         working-directory: backend
 
-      - name: Run Tests (Jest)
+      
+      - name: Run backend tests
         run: npm test
         working-directory: backend
 
+      
       - name: Build backend
         run: npm run build
         working-directory: backend
@@ -41,11 +45,12 @@ jobs:
       - name: Build frontend
         run: npm run build
         working-directory: frontend
-        env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
 
-      # ---------- Restart ----------
+      # ---------- Deploy ----------
 
-      - name: Restart backend
-        run: |
-          pm2 restart standing-together-backend || pm2 start /home/runner/actions-runner/_work/Standing-together-2/Standing-together-2/backend/dist/index.js --name standing-together-backend
+      - name: Deploy via SSH
+        uses: appleboy/scp-action@master
+        jobs:
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "."
+          target: "/var/www/Standing-together-2"
