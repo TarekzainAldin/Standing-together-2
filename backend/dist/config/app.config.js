@@ -15,7 +15,6 @@ const appConfig = () => ({
     GOOGLE_CLIENT_SECRET: (0, get_env_1.getEnv)("GOOGLE_CLIENT_SECRET"),
     GOOGLE_CLIENT_URI: (0, get_env_1.getEnv)("GOOGLE_CLIENT_URI"),
     GOOGLE_CALLBACK_URL: (0, get_env_1.getEnv)("GOOGLE_CALLBACK_URL"),
-    // FRONTEND_ORIGIN: getEnv("FRONTEND_ORIGIN", "localhost"),
     FRONTEND_ORIGIN: (0, get_env_1.getEnv)("FRONTEND_ORIGIN", "http://localhost:5173"),
     FRONTEND_LOCAL: "localhost",
     FRONTEND_GOOGLE_CALLBACK_URL: (0, get_env_1.getEnv)("FRONTEND_GOOGLE_CALLBACK_URL"),

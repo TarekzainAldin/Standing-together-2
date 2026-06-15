@@ -41,11 +41,20 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // );
 app.use(passport_1.default.initialize());
 // app.use(passport.session());
+const allowedOrigins = app_config_1.config.FRONTEND_ORIGIN.split(",").map((o) => o.trim());
 app.use((0, cors_1.default)({
-    origin: app_config_1.config.FRONTEND_ORIGIN,
+    origin: (origin, callback) => {
+        // Allow requests with no origin (e.g. mobile apps, curl, Postman)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error(`CORS: origin ${origin} not allowed`));
+        }
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.get(`/`, (0, asyncHandler_middleware_1.asyncHandler)(async (req, res, next) => {
     return res.status(http_config_1.HTTPSTATUS.OK).json({

@@ -46,7 +46,7 @@
 // }
 // {
 //     "email": "sam@example.com",
-//     "password": "samZin123"
+//     "password": "samZin1234"
 // }
 //wil@example.com 
 //wil123

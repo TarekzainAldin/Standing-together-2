@@ -32,6 +32,7 @@ exports.registerUserController = (0, asyncHandler_middleware_1.asyncHandler)(asy
     });
 });
 exports.loginController = (0, asyncHandler_middleware_1.asyncHandler)(async (req, res, next) => {
+    auth_validation_1.loginSchema.parse(req.body);
     passport_1.default.authenticate("local", (err, user, info) => {
         if (err) {
             return next(err);
