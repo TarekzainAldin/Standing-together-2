@@ -61,7 +61,12 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-          cd /var/www/Standing-together-2/backend
-          npm install --omit=dev
-          npm run build
-          pm2 restart standing-together || pm2 start dist/index.js --name standing-together
+            cd /var/www/Standing-together-2/backend
+            npm install
+            npm run build
+            if pm2 describe standing-together > /dev/null 2>&1; then
+              pm2 restart standing-together
+            else
+              pm2 start dist/index.js --name standing-together
+            fi
+            pm2 save
