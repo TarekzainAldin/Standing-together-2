@@ -73,3 +73,4 @@ jobs:
             cd /var/www/Standing-together-2/backend
             npm install --production
             pm2 restart standing-together-backend || pm2 start dist/index.js --name standing-together-backend
+
