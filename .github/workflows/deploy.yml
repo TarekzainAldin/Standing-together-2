@@ -28,6 +28,12 @@ jobs:
         run: npm run build
         working-directory: backend
 
+      # ---------- Backend tests ----------
+
+      - name: Run backend tests
+        run: npm test
+        working-directory: backend
+
       # ---------- Frontend ----------
 
       - name: Install frontend dependencies
