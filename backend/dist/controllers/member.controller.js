@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.joinWorkspaceController = void 0;
+exports.removeMemberController = exports.joinWorkspaceController = void 0;
 const asyncHandler_middleware_1 = require("../middlewares/asyncHandler.middleware");
 const zod_1 = require("zod");
 const http_config_1 = require("../config/http.config");
@@ -14,4 +14,11 @@ exports.joinWorkspaceController = (0, asyncHandler_middleware_1.asyncHandler)(as
         workspaceId,
         role,
     });
+});
+exports.removeMemberController = (0, asyncHandler_middleware_1.asyncHandler)(async (req, res) => {
+    const workspaceId = zod_1.z.string().parse(req.params.workspaceId);
+    const memberId = zod_1.z.string().parse(req.params.memberId);
+    const requestingUserId = req.user?._id;
+    const result = await (0, member_service_1.removeMemberService)(requestingUserId, workspaceId, memberId);
+    return res.status(http_config_1.HTTPSTATUS.OK).json(result);
 });

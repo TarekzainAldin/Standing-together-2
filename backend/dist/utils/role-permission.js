@@ -21,6 +21,8 @@ exports.RolePermissions = {
     ],
     ADMIN: [
         role_enum_1.Permissions.ADD_MEMBER,
+        role_enum_1.Permissions.CHANGE_MEMBER_ROLE,
+        role_enum_1.Permissions.REMOVE_MEMBER,
         role_enum_1.Permissions.CREATE_PROJECT,
         role_enum_1.Permissions.EDIT_PROJECT,
         role_enum_1.Permissions.DELETE_PROJECT,
