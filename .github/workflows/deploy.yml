@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -44,30 +44,8 @@ jobs:
         env:
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
 
-      # ---------- Deploy ----------
+      # ---------- Restart ----------
 
-      - name: Remove node_modules before deploy
+      - name: Restart backend
         run: |
-          rm -rf backend/node_modules
-          rm -rf frontend/node_modules
-
-      - name: Deploy via SSH
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          source: "."
-          target: "/var/www/Standing-together-2"
-          overwrite: true
-
-      - name: Restart backend on server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /var/www/Standing-together-2/backend
-            npm install --production
-            pm2 restart standing-together-backend || pm2 start dist/index.js --name standing-together-backend
+          pm2 restart standing-together-backend || pm2 start /home/runner/actions-runner/_work/Standing-together-2/Standing-together-2/backend/dist/index.js --name standing-together-backend
