@@ -28,6 +28,8 @@ export const RolePermissions: Record<RoleType, Array<PermissionType>> = {
   ],
   ADMIN: [
     Permissions.ADD_MEMBER,
+    Permissions.CHANGE_MEMBER_ROLE,
+    Permissions.REMOVE_MEMBER,
     Permissions.CREATE_PROJECT,
     Permissions.EDIT_PROJECT,
     Permissions.DELETE_PROJECT,

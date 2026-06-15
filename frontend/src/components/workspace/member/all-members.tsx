@@ -1,4 +1,4 @@
-import { ChevronDown, Loader } from "lucide-react";
+import { ChevronDown, Loader, UserMinus } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,7 @@ import { useAuthContext } from "@/context/auth-provider";
 import useWorkspaceId from "@/hooks/use-workspace-id";
 import useGetWorkspaceMembers from "@/hooks/api/use-get-workspace-members";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { changeWorkspaceMemberRoleMutationFn } from "@/lib/api";
+import { changeWorkspaceMemberRoleMutationFn, removeMemberMutationFn } from "@/lib/api";
 import { toast } from "@/hooks/use-toast";
 import { Permissions } from "@/constant";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,7 @@ const AllMembers = () => {
   const { t } = useTranslation();
   const { user, hasPermission } = useAuthContext();
   const canChangeMemberRole = hasPermission(Permissions.CHANGE_MEMBER_ROLE);
+  const canRemoveMember = hasPermission(Permissions.REMOVE_MEMBER);
 
   const queryClient = useQueryClient();
   const workspaceId = useWorkspaceId();
@@ -35,6 +36,32 @@ const AllMembers = () => {
   const { mutate, isPending: isLoading } = useMutation({
     mutationFn: changeWorkspaceMemberRoleMutationFn,
   });
+
+  const { mutate: removeMember, isPending: isRemoving } = useMutation({
+    mutationFn: removeMemberMutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["members", workspaceId] });
+      toast({
+        title: t("success"),
+        description: t("memberRemoved", { defaultValue: "Member removed" }),
+        variant: "success",
+      });
+    },
+    onError: (error: unknown) => {
+      toast({
+        title: t("error"),
+        description:
+          error instanceof Error ? error.message : t("unknownError"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRemove = (memberId: string) => {
+    if (!confirm(t("confirmRemoveMember", { defaultValue: "Remove this member?" })))
+      return;
+    removeMember({ workspaceId, memberId });
+  };
 
   const handleSelect = (roleId: string, memberId: string) => {
     if (!roleId || !memberId) return;
@@ -107,6 +134,19 @@ const AllMembers = () => {
             </div>
 
             <div className="flex items-center gap-3">
+              {canRemoveMember &&
+                member.userId._id !== user?._id &&
+                member.role.name !== "OWNER" && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                    disabled={isRemoving}
+                    onClick={() => handleRemove(member.userId._id)}
+                  >
+                    <UserMinus className="h-4 w-4" />
+                  </Button>
+                )}
               <Popover>
                 <PopoverTrigger asChild>
                   <Button

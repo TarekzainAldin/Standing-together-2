@@ -8,6 +8,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from "../utils/appError";
+import { RolePermissions } from "../utils/role-permission";
 
 export const getMemberRoleInWorkspace = async (
   userId: string,
@@ -70,4 +71,59 @@ export const joinWorkspaceByInviteService = async (
   await newMember.save();
 
   return { workspaceId: workspace._id, role: role.name };
+};
+
+export const removeMemberService = async (
+  requestingUserId: string,
+  workspaceId: string,
+  memberId: string
+) => {
+  const workspace = await WorkspaceModel.findById(workspaceId);
+  if (!workspace) throw new NotFoundException("Workspace not found");
+
+  // Get the requesting user's role
+  const requester = await MemberModel.findOne({
+    userId: requestingUserId,
+    workspaceId,
+  }).populate("role");
+
+  if (!requester) {
+    throw new UnauthorizedException(
+      "You are not a member of this workspace",
+      ErrorCodeEnum.ACCESS_UNAUTHORIZED
+    );
+  }
+
+  const requesterRole = requester.role?.name as keyof typeof RolePermissions;
+  if (!RolePermissions[requesterRole]?.includes("REMOVE_MEMBER")) {
+    throw new UnauthorizedException(
+      "You do not have permission to remove members",
+      ErrorCodeEnum.ACCESS_UNAUTHORIZED
+    );
+  }
+
+  // Find the member to remove
+  const memberToRemove = await MemberModel.findOne({
+    userId: memberId,
+    workspaceId,
+  }).populate("role");
+
+  if (!memberToRemove) throw new NotFoundException("Member not found");
+
+  // Cannot remove the workspace owner
+  if (memberToRemove.role?.name === Roles.OWNER) {
+    throw new BadRequestException("Cannot remove the workspace owner");
+  }
+
+  // Admin cannot remove another Admin
+  if (
+    requesterRole === Roles.ADMIN &&
+    memberToRemove.role?.name === Roles.ADMIN
+  ) {
+    throw new BadRequestException("Admins cannot remove other admins");
+  }
+
+  await MemberModel.deleteOne({ userId: memberId, workspaceId });
+
+  return { message: "Member removed successfully" };
 };
