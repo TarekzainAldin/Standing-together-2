@@ -11,7 +11,8 @@
     "tasks": "Tâches",
     "members": "Membres",
     "settings": "Paramètres",
-    "projects": "Projets"
+    "projects": "Projets",
+    "profile": "Profil"
   },
   "projects": {
     "label": "Projets",
@@ -269,12 +270,42 @@
     "errorUpdate": "Erreur lors de la mise à jour de la tâche"
   },
   "dashboard": {
-  "workspaceOverview": "Aperçu de l'espace de travail",
-  "workspaceOverviewDescription": "Voici un aperçu de cet espace de travail !",
-  "newProject": "Nouveau projet",
-  "recentProjects": "Projets récents",
-  "recentTasks": "Tâches récentes",
-  "recentMembers": "Membres récents"
-}
-
+    "workspaceOverview": "Aperçu de l'espace de travail",
+    "workspaceOverviewDescription": "Voici un aperçu de cet espace de travail !",
+    "newProject": "Nouveau projet",
+    "recentProjects": "Projets récents",
+    "recentTasks": "Tâches récentes",
+    "recentMembers": "Membres récents"
+  },
+  "profile": {
+    "title": "Mon profil",
+    "edit_name": "Modifier mon nom",
+    "change_password": "Changer mon mot de passe",
+    "change_password_description": "Disponible pour les propriétaires et administrateurs uniquement",
+    "current_password": "Mot de passe actuel",
+    "new_password": "Nouveau mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "save_changes": "Enregistrer les modifications",
+    "password_changed": "Mot de passe modifié avec succès",
+    "name_updated": "Nom mis à jour",
+    "delete_account": "Supprimer mon compte",
+    "delete_account_description": "Cette action est permanente et irréversible. Tous vos espaces de travail, projets et tâches seront supprimés.",
+    "delete_account_confirm_title": "Supprimer votre compte",
+    "delete_account_confirm_description": "Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible.",
+    "delete_account_confirm_button": "Supprimer le compte",
+    "delete_account_success": "Compte supprimé avec succès",
+    "delete_account_warning": "Cette action est irréversible",
+    "delete_owner_title": "Vous allez supprimer {{count}} espace(s) de travail",
+    "delete_owner_body": "Cette action est identique à supprimer chaque workspace depuis ses paramètres. Tout le contenu sera supprimé définitivement.",
+    "delete_member_body": "Votre compte sera supprimé. Vous serez retiré de tous les workspaces sans affecter leur contenu.",
+    "delete_type_confirm": "Tapez DELETE pour confirmer",
+    "delete_button": "Supprimer définitivement",
+    "delete_password_label": "Mot de passe (laisser vide pour les comptes Google)",
+    "members_count": "{{count}} membre(s)",
+    "tasks_count": "{{count}} tâche(s)",
+    "projects_count": "{{count}} projet(s)"
+  },
+  "legal": {
+    "privacy_policy": "Politique de confidentialité"
+  }
 }

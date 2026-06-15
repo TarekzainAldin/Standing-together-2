@@ -71,7 +71,7 @@ const SignUp = () => {
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center mb-8">
           <Link to="/" className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-white drop-shadow">
-            <Logo />
+            <Logo noLink />
             <span>Standing Together</span>
           </Link>
         </div>

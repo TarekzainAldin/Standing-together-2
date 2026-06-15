@@ -80,7 +80,7 @@ const SignIn = () => {
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center mb-8">
           <Link to="/" className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-white drop-shadow">
-            <Logo />
+            <Logo noLink />
             <span>Standing Together</span>
           </Link>
         </div>
@@ -176,13 +176,13 @@ const SignIn = () => {
 
         <p className="mt-6 text-center text-xs text-gray-100 dark:text-gray-400">
           By continuing, you agree to our{' '}
-          <a href="#" className="underline hover:text-yellow-200">
+          <Link to="/legal/terms" className="underline hover:text-yellow-200">
             Terms of Service
-          </a>{' '}
+          </Link>{' '}
           and{' '}
-          <a href="#" className="underline hover:text-yellow-200">
+          <Link to="/legal/privacy" className="underline hover:text-yellow-200">
             Privacy Policy
-          </a>.
+          </Link>.
         </p>
       </div>
     </div>

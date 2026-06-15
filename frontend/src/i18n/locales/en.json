@@ -11,7 +11,8 @@
     "tasks": "Tasks",
     "members": "Members",
     "settings": "Settings",
-    "projects": "Projects"
+    "projects": "Projects",
+    "profile": "Profile"
   },
   "projects": {
     "label": "Projects",
@@ -272,11 +273,42 @@
     "errorUpdate": "Error updating task"
   },
   "dashboard": {
-  "workspaceOverview": "Workspace Overview",
-  "workspaceOverviewDescription": "Here’s an overview for this workspace!",
-  "newProject": "New Project",
-  "recentProjects": "Recent Projects",
-  "recentTasks": "Recent Tasks",
-  "recentMembers": "Recent Members"
-}
+    "workspaceOverview": "Workspace Overview",
+    "workspaceOverviewDescription": "Here’s an overview for this workspace!",
+    "newProject": "New Project",
+    "recentProjects": "Recent Projects",
+    "recentTasks": "Recent Tasks",
+    "recentMembers": "Recent Members"
+  },
+  "profile": {
+    "title": "My profile",
+    "edit_name": "Edit my name",
+    "change_password": "Change password",
+    "change_password_description": "Available for owners and admins only",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "confirm_password": "Confirm password",
+    "save_changes": "Save changes",
+    "password_changed": "Password changed successfully",
+    "name_updated": "Name updated",
+    "delete_account": "Delete account",
+    "delete_account_description": "This action is permanent and cannot be undone. All your workspaces, projects, and tasks will be deleted.",
+    "delete_account_confirm_title": "Delete your account",
+    "delete_account_confirm_description": "Are you sure you want to permanently delete your account? This action cannot be undone.",
+    "delete_account_confirm_button": "Delete account",
+    "delete_account_success": "Account deleted successfully",
+    "delete_account_warning": "This action is irreversible",
+    "delete_owner_title": "You will delete {{count}} workspace(s)",
+    "delete_owner_body": "This is identical to deleting each workspace from its settings. All content will be permanently deleted.",
+    "delete_member_body": "Your account will be deleted. You will be removed from all workspaces without affecting their content.",
+    "delete_type_confirm": "Type DELETE to confirm",
+    "delete_button": "Delete permanently",
+    "delete_password_label": "Password (leave blank for Google accounts)",
+    "members_count": "{{count}} member(s)",
+    "tasks_count": "{{count}} task(s)",
+    "projects_count": "{{count}} project(s)"
+  },
+  "legal": {
+    "privacy_policy": "Privacy policy"
+  }
 }

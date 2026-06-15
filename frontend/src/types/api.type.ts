@@ -284,3 +284,24 @@ export type AllTaskResponseType = {
   tasks: TaskType[];
   pagination: PaginationType;
 };
+
+// ──────────────────────────────────────────────
+// ACCOUNT DELETION PREVIEW
+// ──────────────────────────────────────────────
+export type DeletionPreviewWorkspaceType = {
+  id: string;
+  name: string;
+  memberCount: number;
+  taskCount: number;
+  projectCount: number;
+};
+
+export type DeletionPreviewType = {
+  isOwner: boolean;
+  ownedWorkspaces: DeletionPreviewWorkspaceType[];
+};
+
+export type DeletionPreviewResponseType = {
+  message: string;
+  preview: DeletionPreviewType;
+};

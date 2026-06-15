@@ -19,6 +19,7 @@ import {
   AllWorkspaceResponseType,
   CreateWorkspaceType,
   CurrentUserResponseType,
+  DeletionPreviewResponseType,
   LoginResponseType,
   loginType,
   registerType,
@@ -188,6 +189,45 @@ export const deleteProjectMutationFn = async ({
   const response = await API.delete(
     `/project/${projectId}/workspace/${workspaceId}/delete`
   );
+  return response.data;
+};
+
+//*******USER PROFILE ****************************
+
+export const updateUserProfileMutationFn = async (data: {
+  name?: string;
+  profilePicture?: string;
+}) => {
+  const response = await API.put("/user/profile/update", data);
+  return response.data;
+};
+
+export const changePasswordMutationFn = async (data: {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}) => {
+  const response = await API.put("/user/change-password", data);
+  return response.data;
+};
+
+export const deleteUserProfileMutationFn = async (): Promise<{
+  message: string;
+}> => {
+  const response = await API.delete("/user/profile/delete");
+  return response.data;
+};
+
+export const getDeletionPreviewQueryFn =
+  async (): Promise<DeletionPreviewResponseType> => {
+    const response = await API.get("/user/account/deletion-preview");
+    return response.data;
+  };
+
+export const deleteUserAccountMutationFn = async (data?: {
+  password?: string;
+}): Promise<{ message: string }> => {
+  const response = await API.delete("/user/account", { data });
   return response.data;
 };
 

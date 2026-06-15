@@ -6,6 +6,8 @@ import Members from "@/page/workspace/Members";
 import ProjectDetails from "@/page/workspace/ProjectDetails";
 import Settings from "@/page/workspace/Settings";
 import Tasks from "@/page/workspace/Tasks";
+import Profile from "@/page/workspace/Profile";
+import Privacy from "@/page/legal/Privacy";
 import { AUTH_ROUTES, BASE_ROUTE, PROTECTED_ROUTES } from "./routePaths";
 import InviteUser from "@/page/invite/InviteUser";
 
@@ -21,8 +23,10 @@ export const protectedRoutePaths = [
   { path: PROTECTED_ROUTES.MEMBERS, element: <Members /> },
   { path: PROTECTED_ROUTES.SETTINGS, element: <Settings /> },
   { path: PROTECTED_ROUTES.PROJECT_DETAILS, element: <ProjectDetails /> },
+  { path: PROTECTED_ROUTES.PROFILE, element: <Profile /> },
 ];
 
 export const baseRoutePaths = [
   { path: BASE_ROUTE.INVITE_URL, element: <InviteUser /> },
+  { path: BASE_ROUTE.PRIVACY, element: <Privacy /> },
 ];

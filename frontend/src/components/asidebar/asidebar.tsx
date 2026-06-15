@@ -164,6 +164,16 @@ backgroundSize: "0.5rem auto"
           </SidebarMenu>
         </SidebarFooter>
 
+        {/* Privacy policy link */}
+        <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-800">
+          <Link
+            to="/legal/privacy"
+            className="text-xs text-muted-foreground hover:underline"
+          >
+            {t("legal.privacy_policy")}
+          </Link>
+        </div>
+
         <SidebarRail />
       </Sidebar>
 

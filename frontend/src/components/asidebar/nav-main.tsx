@@ -6,6 +6,7 @@ import {
   Users,
   CheckCircle,
   LayoutDashboard,
+  UserCircle,
 } from "lucide-react";
 import {
   SidebarGroup,
@@ -50,6 +51,11 @@ export function NavMain() {
       title: t("nav.settings"),
       url: `/workspace/${workspaceId}/settings`,
       icon: Settings,
+    },
+    {
+      title: t("nav.profile"),
+      url: `/workspace/${workspaceId}/profile`,
+      icon: UserCircle,
     },
   ];
 
