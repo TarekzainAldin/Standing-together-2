@@ -54,24 +54,4 @@ jobs:
           source: "."
           target: "/var/www/Standing-together-2"
 
-      # ---------- Build backend and restart PM2 ----------
-      - name: Build and restart app via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /var/www/Standing-together-2/backend
-
-            # Install backend dependencies
-            npm install --omit=dev
-
-            # Rebuild TypeScript to make sure latest routes exist
-            npm run build
-
-            # Restart existing PM2 process or create it if missing
-            pm2 restart standing-together || pm2 start dist/index.js --name standing-together
-
-            # Save PM2 process list for server reboot
-            pm2 save
+   
