@@ -9,6 +9,16 @@ const appError_1 = require("../utils/appError");
 const member_model_1 = __importDefault(require("../models/member.model"));
 const task_enum_1 = require("../enums/task.enum");
 const task_model_1 = __importDefault(require("../models/task.model"));
+/**
+ * @description Crée une nouvelle tâche dans un projet appartenant à un workspace
+ * @param {string} workspaceId - Identifiant du workspace
+ * @param {string} projectId - Identifiant du projet
+ * @param {string} userId - Identifiant de l'utilisateur qui crée la tâche
+ * @param {object} body - { title, description, priority, status, assignedTo, dueDate }
+ * @returns {Promise<{ task: TaskDocument }>}
+ * @throws {NotFoundException} Si le projet n'existe pas ou n'appartient pas au workspace
+ * @throws {Error} Si l'utilisateur assigné n'est pas membre du workspace
+ */
 const createTaskService = async (workspaceId, projectId, userId, body) => {
     const { title, description, priority, status, assignedTo, dueDate } = body;
     const project = await project_model_1.default.findById(projectId);

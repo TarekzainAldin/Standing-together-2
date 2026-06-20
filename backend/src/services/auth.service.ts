@@ -86,6 +86,13 @@ export const loginOrCreateAccountService = async (data: {
   }
 };
 
+/**
+ * @description Inscrit un nouvel utilisateur avec email et mot de passe
+ * @param {object} body - { email, name, password }
+ * @returns {Promise<{ userId: string, workspaceId: string }>}
+ * @throws {BadRequestException} Si l'email est déjà utilisé
+ * @throws {NotFoundException} Si le rôle OWNER n'existe pas en base
+ */
 export const registerUserService = async (body: {
   email: string;
   name: string;

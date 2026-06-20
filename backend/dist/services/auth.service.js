@@ -72,6 +72,13 @@ const loginOrCreateAccountService = async (data) => {
     }
 };
 exports.loginOrCreateAccountService = loginOrCreateAccountService;
+/**
+ * @description Inscrit un nouvel utilisateur avec email et mot de passe
+ * @param {object} body - { email, name, password }
+ * @returns {Promise<{ userId: string, workspaceId: string }>}
+ * @throws {BadRequestException} Si l'email est déjà utilisé
+ * @throws {NotFoundException} Si le rôle OWNER n'existe pas en base
+ */
 const registerUserService = async (body) => {
     const { email, name, password } = body;
     const session = await mongoose_1.default.startSession();

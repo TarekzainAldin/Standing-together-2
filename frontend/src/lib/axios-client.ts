@@ -2,7 +2,7 @@ import { useStoreBase } from "@/store/store";
 import { CustomError } from "@/types/custom-error.type";
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || "https://basalt-tech.org/api";
+const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
 
 const API = axios.create({
   baseURL,

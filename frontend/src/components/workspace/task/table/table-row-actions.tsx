@@ -19,6 +19,7 @@ import { deleteTaskMutationFn } from "@/lib/api";
 import { toast } from "@/hooks/use-toast";
 import EditTaskDialog from "../edit-task-dialog"; // Import the Edit Dialog
 import { useTranslation } from "react-i18next"; // ✅ Import translation hook
+import { useAuthContext } from "@/context/auth-provider";
 
 interface DataTableRowActionsProps {
   row: Row<TaskType>;
@@ -26,6 +27,7 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { t } = useTranslation(); // ✅ Initialize translation
+  const { hasPermission } = useAuthContext();
 
   const [openDeleteDialog, setOpenDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false); // State for edit dialog
@@ -79,16 +81,19 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           <DropdownMenuItem className="cursor-pointer" onClick={() => setOpenEditDialog(true)}>
             <Pencil className="w-4 h-4 mr-2" /> {t("taskForm.editTask")}
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-
-          {/* Delete Task Option */}
-          <DropdownMenuItem
-            className="!text-destructive cursor-pointer"
-            onClick={() => setOpenDialog(true)}
-          >
-            {t("taskForm.deleteTask")}
-            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {hasPermission("DELETE_TASK") && (
+            <>
+              <DropdownMenuSeparator />
+              {/* Delete Task Option */}
+              <DropdownMenuItem
+                className="!text-destructive cursor-pointer"
+                onClick={() => setOpenDialog(true)}
+              >
+                {t("taskForm.deleteTask")}
+                <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
 

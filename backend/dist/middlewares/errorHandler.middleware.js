@@ -11,7 +11,7 @@ const formatZodError = (res, error) => {
         message: err.message,
     }));
     return res.status(http_config_1.HTTPSTATUS.BAD_REQUEST).json({
-        message: "Valdation failed",
+        message: "Validation failed",
         error: errors,
         errorCode: error_code_enum_1.ErrorCodeEnum.VALIDATION_ERROR,
     });
@@ -20,7 +20,7 @@ const errorHandler = (error, req, res, next) => {
     console.error(`Error Occured on path ${req.path}`, error);
     if (error instanceof SyntaxError) {
         return res.status(http_config_1.HTTPSTATUS.BAD_REQUEST).json({
-            message: "invalid json fromate . plase check your request",
+            message: "invalid json format. please check your request",
         });
     }
     if (error instanceof zod_1.ZodError) {

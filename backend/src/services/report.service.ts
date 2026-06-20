@@ -63,7 +63,10 @@ export const generateAnalysisReport = async (): Promise<string> => {
 };
 
 /**
- * تقرير لمساحة عمل واحدة
+ * @description Génère un rapport Excel pour un workspace unique (projets et tâches associées)
+ * @param {string} workspaceId - Identifiant du workspace à exporter
+ * @returns {Promise<string>} Chemin absolu du fichier .xlsx généré
+ * @throws {Error} Si le workspace n'existe pas en base
  */
 export const generateSingleWorkspaceReport = async (
   workspaceId: string

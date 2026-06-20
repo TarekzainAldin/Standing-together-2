@@ -111,6 +111,11 @@ const changeMemberRoleService = async (workspaceId, memberId, roleId) => {
     };
 };
 exports.changeMemberRoleService = changeMemberRoleService;
+/**
+ * @description Calcule les statistiques d'un workspace (tâches totales, en retard, terminées)
+ * @param {string} workspaceId - Identifiant du workspace à analyser
+ * @returns {Promise<{ analytics: { totalTasks: number, overdueTasks: number, completedTasks: number } }>}
+ */
 const getWorkspaceAnalyticsService = async (workspaceId) => {
     const currentDate = new Date();
     const totalTasks = await task_model_1.default.countDocuments({
