@@ -100,7 +100,10 @@ passport.use(
         const user = await verifyUserService({ email, password });
         return done(null, user);
       } catch (error: any) {
-        return done(error, false, { message: error?.message });
+        if (error instanceof AppError) {
+          return done(error, false, { message: error.message });
+        }
+        return done(null, false, { message: "Authentication failed. Please try again." });
       }
     }
   )
