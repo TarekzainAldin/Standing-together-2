@@ -44,7 +44,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 // app.use(passport.session());
 
-const allowedOrigins = config.FRONTEND_ORIGIN.split(",").map((o) => o.trim());
+const allowedOrigins = config.FRONTEND_ORIGIN
+  .split(",")
+  .map((o) => o.trim().replace(/\/$/, ""));
 
 app.use(
   cors({

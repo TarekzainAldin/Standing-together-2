@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
 const auth_service_1 = require("../../services/auth.service");
 const user_model_1 = __importDefault(require("../../models/user.model"));
 const account_model_1 = __importDefault(require("../../models/account.model"));
@@ -11,46 +10,31 @@ const workspace_model_1 = __importDefault(require("../../models/workspace.model"
 const roles_permission_model_1 = __importDefault(require("../../models/roles-permission.model"));
 const member_model_1 = __importDefault(require("../../models/member.model"));
 const appError_1 = require("../../utils/appError");
-// Mock startSession فقط
-mongoose_1.default.startSession = jest.fn().mockResolvedValue({
-    startTransaction: jest.fn(),
-    commitTransaction: jest.fn(),
-    abortTransaction: jest.fn(),
-    endSession: jest.fn(),
-});
-// Mock النماذج
 jest.mock("../../models/user.model");
 jest.mock("../../models/account.model");
 jest.mock("../../models/workspace.model");
 jest.mock("../../models/roles-permission.model");
 jest.mock("../../models/member.model");
 describe("registerUserService", () => {
-    let mockSession;
     beforeEach(() => {
         jest.clearAllMocks();
-        mockSession = {
-            startTransaction: jest.fn(),
-            commitTransaction: jest.fn(),
-            abortTransaction: jest.fn(),
-            endSession: jest.fn(),
-        };
-        mongoose_1.default.startSession.mockResolvedValue(mockSession);
+        user_model_1.default.deleteOne.mockResolvedValue({});
     });
     it("should create user, account, workspace, and member successfully", async () => {
-        const fakeUser = { _id: "user1", save: jest.fn(), name: "John", email: "john@test.com", currentWorkspace: null };
+        const fakeUser = {
+            _id: "user1",
+            save: jest.fn(),
+            name: "John",
+            email: "john@test.com",
+            currentWorkspace: null,
+        };
         const fakeWorkspace = { _id: "ws1", save: jest.fn() };
         const fakeRole = { _id: "role1" };
-        // Mock findOne().session() للسطر اللي يتحقق من وجود المستخدم
-        user_model_1.default.findOne.mockImplementation(() => ({
-            session: jest.fn().mockResolvedValue(null), // لا يوجد مستخدم
-        }));
-        // Mock constructors
+        user_model_1.default.findOne.mockResolvedValue(null);
         user_model_1.default.mockImplementation(() => fakeUser);
         account_model_1.default.mockImplementation(() => ({ save: jest.fn() }));
         workspace_model_1.default.mockImplementation(() => fakeWorkspace);
-        roles_permission_model_1.default.findOne.mockImplementation(() => ({
-            session: jest.fn().mockResolvedValue(fakeRole),
-        }));
+        roles_permission_model_1.default.findOne.mockResolvedValue(fakeRole);
         member_model_1.default.mockImplementation(() => ({ save: jest.fn() }));
         const result = await (0, auth_service_1.registerUserService)({
             email: "john@test.com",
@@ -60,24 +44,21 @@ describe("registerUserService", () => {
         expect(user_model_1.default.findOne).toHaveBeenCalledWith({ email: "john@test.com" });
         expect(result.userId).toBe("user1");
         expect(result.workspaceId).toBe("ws1");
-        expect(mockSession.commitTransaction).toHaveBeenCalled();
     });
     it("should throw BadRequestException if user already exists", async () => {
-        user_model_1.default.findOne.mockImplementation(() => ({
-            session: jest.fn().mockResolvedValue({ _id: "user1", email: "john@test.com" }), // مستخدم موجود
-        }));
+        user_model_1.default.findOne.mockResolvedValue({
+            _id: "user1",
+            email: "john@test.com",
+        });
         await expect((0, auth_service_1.registerUserService)({ email: "john@test.com", name: "John", password: "123" })).rejects.toThrow(appError_1.BadRequestException);
     });
     it("should throw NotFoundException if owner role not found", async () => {
-        user_model_1.default.findOne.mockImplementation(() => ({
-            session: jest.fn().mockResolvedValue(null), // لا يوجد مستخدم
-        }));
-        user_model_1.default.mockImplementation(() => ({ save: jest.fn(), _id: "user1" }));
+        const fakeUser = { _id: "user1", save: jest.fn(), name: "John" };
+        user_model_1.default.findOne.mockResolvedValue(null);
+        user_model_1.default.mockImplementation(() => fakeUser);
         account_model_1.default.mockImplementation(() => ({ save: jest.fn() }));
         workspace_model_1.default.mockImplementation(() => ({ save: jest.fn(), _id: "ws1" }));
-        roles_permission_model_1.default.findOne.mockImplementation(() => ({
-            session: jest.fn().mockResolvedValue(null), // role غير موجود
-        }));
+        roles_permission_model_1.default.findOne.mockResolvedValue(null);
         await expect((0, auth_service_1.registerUserService)({ email: "noRole@test.com", name: "John", password: "123" })).rejects.toThrow(appError_1.NotFoundException);
     });
 });

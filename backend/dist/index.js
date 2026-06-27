@@ -41,7 +41,9 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // );
 app.use(passport_1.default.initialize());
 // app.use(passport.session());
-const allowedOrigins = app_config_1.config.FRONTEND_ORIGIN.split(",").map((o) => o.trim());
+const allowedOrigins = app_config_1.config.FRONTEND_ORIGIN
+    .split(",")
+    .map((o) => o.trim().replace(/\/$/, ""));
 app.use((0, cors_1.default)({
     origin: (origin, callback) => {
         // Allow requests with no origin (e.g. mobile apps, curl, Postman)

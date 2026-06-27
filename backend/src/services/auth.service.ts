@@ -25,12 +25,10 @@ export const loginOrCreateAccountService = async (data: {
 
   try {
     session.startTransaction();
-    console.log("Started Session...");
 
     let user = await UserModel.findOne({ email }).session(session);
 
     if (!user) {
-      // Create a new user if it doesn't exist
       user = new UserModel({
         email,
         name: displayName,
@@ -45,7 +43,6 @@ export const loginOrCreateAccountService = async (data: {
       });
       await account.save({ session });
 
-      // 3. Create a new workspace for the new user
       const workspace = new WorkspaceModel({
         name: `My Workspace`,
         description: `Workspace created for ${user.name}`,
@@ -72,14 +69,11 @@ export const loginOrCreateAccountService = async (data: {
       user.currentWorkspace = workspace._id as mongoose.Types.ObjectId;
       await user.save({ session });
     }
-    await session.commitTransaction();
-    session.endSession();
-    console.log("End Session...");
 
+    await session.commitTransaction();
     return { user };
   } catch (error) {
     await session.abortTransaction();
-    session.endSession();
     throw error;
   } finally {
     session.endSession();
