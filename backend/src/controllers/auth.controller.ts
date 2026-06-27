@@ -75,7 +75,12 @@ export const loginController = asyncHandler(
         //     user,
         //   });
         // });
-        const access_token = signJwtToken({userId:user._id});
+        let access_token: string;
+        try {
+          access_token = signJwtToken({userId:user._id});
+        } catch (jwtErr) {
+          return next(jwtErr);
+        }
         return res.status(HTTPSTATUS.OK).json({
             message: "Logged in successfully",
             access_token,
