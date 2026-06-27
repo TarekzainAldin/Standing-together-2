@@ -99,42 +99,31 @@ export const registerUserService = async (body: {
   password: string;
 }) => {
   const { email, name, password } = body;
-  const session = await mongoose.startSession();
+
+  const existingUser = await UserModel.findOne({ email });
+  if (existingUser) {
+    throw new BadRequestException("Email already exists");
+  }
+
+  const user = new UserModel({ email, name, password });
+  await user.save();
 
   try {
-    session.startTransaction();
-
-    const existingUser = await UserModel.findOne({ email }).session(session);
-    if (existingUser) {
-      throw new BadRequestException("Email already exists");
-    }
-
-    const user = new UserModel({
-      email,
-      name,
-      password,
-    });
-    await user.save({ session });
-
     const account = new AccountModel({
       userId: user._id,
       provider: ProviderEnum.EMAIL,
       providerId: email,
     });
-    await account.save({ session });
+    await account.save();
 
-    // 3. Create a new workspace for the new user
     const workspace = new WorkspaceModel({
       name: `My Workspace`,
       description: `Workspace created for ${user.name}`,
       owner: user._id,
     });
-    await workspace.save({ session });
+    await workspace.save();
 
-    const ownerRole = await RoleModel.findOne({
-      name: Roles.OWNER,
-    }).session(session);
-
+    const ownerRole = await RoleModel.findOne({ name: Roles.OWNER });
     if (!ownerRole) {
       throw new NotFoundException("Owner role not found");
     }
@@ -145,23 +134,17 @@ export const registerUserService = async (body: {
       role: ownerRole._id,
       joinedAt: new Date(),
     });
-    await member.save({ session });
+    await member.save();
 
     user.currentWorkspace = workspace._id as mongoose.Types.ObjectId;
-    await user.save({ session });
-
-    await session.commitTransaction();
-    session.endSession();
-    console.log("End Session...");
+    await user.save();
 
     return {
       userId: user._id,
       workspaceId: workspace._id,
     };
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-
+    await UserModel.deleteOne({ _id: user._id }).catch(() => {});
     throw error;
   }
 };

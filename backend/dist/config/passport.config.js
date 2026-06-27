@@ -9,6 +9,7 @@ const passport_google_oauth20_1 = require("passport-google-oauth20");
 const passport_local_1 = require("passport-local");
 const passport_jwt_1 = require("passport-jwt");
 const app_config_1 = require("./app.config");
+const appError_1 = require("../utils/appError");
 const account_provider_enum_1 = require("../enums/account-provider.enum");
 const auth_service_1 = require("../services/auth.service");
 const jwt_1 = require("../utils/jwt");
@@ -82,7 +83,10 @@ passport_1.default.use(new passport_local_1.Strategy({
         return done(null, user);
     }
     catch (error) {
-        return done(error, false, { message: error?.message });
+        if (error instanceof appError_1.AppError) {
+            return done(error, false, { message: error.message });
+        }
+        return done(null, false, { message: "Authentication failed. Please try again." });
     }
 }));
 const options = {
